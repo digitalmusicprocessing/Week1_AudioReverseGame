@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Audio Reversing Game</title>
+    <script src="plotly.min.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <h1>The Audio Reversing Game</h1>
+    <h2>By <a href = "http://www.ctralie.com">Chris Tralie</a></h2>
+    <p>The purpose of this exercise is to show students the waveform representation of audio, and to add a fun exercise on top of it.  When you record audio, it will show up as a plotted waveform below.  You can then play it back in reverse.  A fun challenge is to then open this in a new tab and try to match the sounds of the reversed speech, and see if the reverse of that sounds like the original.</p>
+    <button id="start" onclick="startRecording()">Start recording...</button>
+    <button id="stop" onclick="stopRecording()">Stop recording...</button>
+    <BR>
+    <button id = "play" onclick="playAudio()">Play Audio</button>
+    <button id = "playRev" onclick="playReversed()">Play Reversed</button>
+
+    <div id="audioPlot"></div>
+  </body>
+</html>
