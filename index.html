@@ -3,7 +3,9 @@
   <head>
     <title>Audio Reversing Game</title>
     <script src="plotly.min.js"></script>
+    <script src="wav.js"></script>
     <script src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <h1>The Audio Reversing Game</h1>
@@ -12,11 +14,33 @@
     <p>
       For context: I used to play this game for fun all the time with my friend <a href = "https://premiumbs.bandcamp.com/">Brendan Sellers</a> when we were messing around in his recording studio.
     </p>
-    <button id="start" onclick="startRecording()">Start recording...</button>
-    <button id="stop" onclick="stopRecording()">Stop recording...</button>
-    <BR>
-    <button id = "play" onclick="playAudio()">Play Audio</button>
-    <button id = "playRev" onclick="playReversed()">Play Reversed</button>
+    <table>
+      <tr>
+        <td>
+          <button id="start" onclick="startRecording()">⏺️ Start recording...</button>
+        </td>
+        <td>
+          <button id="stop" onclick="stopRecording()">⏹️ Stop recording...</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button id = "play" onclick="playAudio()">▶️ Play Audio</button>
+        </td>
+        <td>
+          <button id = "playRev" onclick="playReversed()">▶️ Play Reversed</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button id = "download" onclick="download()">Download Audio</button>
+        </td>
+        <td>
+          <button id = "downloadRev" onclick="downloadReversed()">Download Reversed Audio</button>
+        </td>
+      </tr>
+    </table>
+    
 
     <div id="audioPlot"></div>
   </body>

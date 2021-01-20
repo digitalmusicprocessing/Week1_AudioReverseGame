@@ -29,6 +29,7 @@ function startRecording() {
   })
 }
 
+let audioBlob = null;
 let samples = [];
 let sr = 44100;
 
@@ -40,7 +41,7 @@ function stopRecording() {
 
   mediaRecorder.stop();
   recorder.then(chunks => {
-    const audioBlob = new Blob(chunks);
+    audioBlob = new Blob(chunks, {type:'audio/mp3'});
     const audioUrl = URL.createObjectURL(audioBlob);
     audio = new Audio(audioUrl);
     // Now plot and make reversed audio
@@ -52,7 +53,7 @@ function stopRecording() {
           let xs = [];
           let ys = [];
           for (let i = 0; i < samples.length; i++) {
-            xs.push(i);
+            xs.push(i/sr);
             ys.push(samples[i]);
           }
           let plot = {x:xs, y:ys}
@@ -88,4 +89,41 @@ function playReversed() {
   source.connect(audioContext.destination);
   // start the source playing
   source.start();
+}
+
+function download() {
+  const url = window.URL.createObjectURL(audioBlob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'audio.mp3';
+  document.body.appendChild(a);
+  a.click();
+}
+
+
+
+function downloadReversed() {
+  let N = samples.length;
+  // interleaved
+  const audio = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    audio[i] = samples[N-i-1];
+  }
+  // get WAV file bytes and audio params of your audio source
+  const wavBytes = getWavBytes(audio.buffer, {
+    isFloat: true,       // floating point or 16-bit integer
+    numChannels: 1,
+    sampleRate: sr,
+  })
+  const wav = new Blob([wavBytes], { type: 'audio/wav' });
+  
+  // create download link and append to Dom
+  const a = document.createElement('a');
+  a.href = window.URL.createObjectURL(wav);
+  a.style.display = 'none';
+  a.download = 'audioRev.wav';
+  document.body.appendChild(a);
+  a.click();
+
 }
